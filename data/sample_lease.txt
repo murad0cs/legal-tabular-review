@@ -1,0 +1,114 @@
+COMMERCIAL LEASE AGREEMENT
+
+This Commercial Lease Agreement ("Lease") is made and entered into as of February 1, 2024 ("Effective Date")
+
+BY AND BETWEEN:
+
+LANDLORD: Metropolitan Properties LLC, a Delaware limited liability company, with its principal office at 500 Fifth Avenue, Suite 2500, New York, NY 10110 ("Landlord")
+
+AND
+
+TENANT: StartupVentures Inc., a Delaware corporation, with its principal place of business at 200 Park Avenue, New York, NY 10166 ("Tenant")
+
+PREMISES
+
+The Landlord hereby leases to the Tenant, and the Tenant hereby leases from the Landlord, the following premises:
+
+Address: 350 Madison Avenue, 15th Floor, New York, NY 10017
+Square Footage: Approximately 12,500 rentable square feet
+Building: Metropolitan Tower
+
+ARTICLE 1 - TERM
+
+1.1 Lease Term: The term of this Lease shall be for a period of five (5) years, commencing on April 1, 2024 ("Commencement Date") and ending on March 31, 2029 ("Expiration Date"), unless sooner terminated in accordance with the terms hereof.
+
+1.2 Early Access: Tenant shall have access to the Premises beginning February 15, 2024 for the purpose of installing fixtures and equipment, subject to Landlord's reasonable approval.
+
+ARTICLE 2 - RENT
+
+2.1 Base Rent: Tenant agrees to pay Landlord as base rent for the Premises the sum of $75.00 per rentable square foot per annum, payable in equal monthly installments as follows:
+
+   Year 1-2: $78,125.00 per month ($937,500.00 annually)
+   Year 3-4: $82,031.25 per month ($984,375.00 annually) - 5% increase
+   Year 5:   $86,132.81 per month ($1,033,593.75 annually) - 5% increase
+
+2.2 Additional Rent: In addition to Base Rent, Tenant shall pay its proportionate share (estimated at 8.5%) of:
+   (a) Real estate taxes in excess of the base year (2024)
+   (b) Operating expenses in excess of the base year (2024)
+   (c) Utility costs for the Premises
+
+2.3 Payment: Rent shall be due and payable on the first day of each calendar month, in advance, without demand, deduction, or offset.
+
+ARTICLE 3 - SECURITY DEPOSIT
+
+3.1 Amount: Upon execution of this Lease, Tenant shall deposit with Landlord a security deposit in the amount of $156,250.00 (equivalent to two months' Base Rent).
+
+3.2 Use: Landlord may apply the security deposit to cure any default by Tenant. Tenant shall replenish any amount so applied within ten (10) days of notice.
+
+3.3 Return: The security deposit, less any amounts applied by Landlord, shall be returned to Tenant within thirty (30) days after the expiration or termination of this Lease and Tenant's surrender of the Premises.
+
+ARTICLE 4 - USE OF PREMISES
+
+4.1 Permitted Use: The Premises shall be used and occupied only for general office purposes, including but not limited to software development, technology consulting, and related administrative functions.
+
+4.2 Prohibited Uses: Tenant shall not use the Premises for any unlawful purpose or in violation of any certificate of occupancy, zoning law, or building code.
+
+ARTICLE 5 - MAINTENANCE AND REPAIRS
+
+5.1 Landlord's Obligations: Landlord shall maintain and repair:
+   (a) The structural components of the Building
+   (b) Common areas, including lobbies, elevators, and restrooms
+   (c) Building systems, including HVAC, plumbing, and electrical (to the point of connection to the Premises)
+   (d) The exterior of the Building, including roof and windows
+
+5.2 Tenant's Obligations: Tenant shall maintain and repair:
+   (a) The interior of the Premises, including walls, ceilings, and floor coverings
+   (b) All alterations, additions, and improvements made by Tenant
+   (c) Tenant's equipment, furniture, and fixtures
+
+ARTICLE 6 - ALTERATIONS
+
+6.1 Tenant shall not make any alterations, additions, or improvements to the Premises without Landlord's prior written consent, which shall not be unreasonably withheld.
+
+6.2 All alterations shall be performed in a good and workmanlike manner in compliance with all applicable laws and building codes.
+
+ARTICLE 7 - RENEWAL OPTION
+
+7.1 Grant of Option: Provided Tenant is not in default, Tenant shall have the option to renew this Lease for one (1) additional term of three (3) years upon the same terms and conditions, except that Base Rent shall be adjusted to the then-prevailing market rate.
+
+7.2 Exercise: Tenant must exercise this option by providing written notice to Landlord no later than nine (9) months prior to the Expiration Date.
+
+ARTICLE 8 - DEFAULT AND REMEDIES
+
+8.1 Events of Default: The following shall constitute events of default:
+   (a) Failure to pay rent within ten (10) days of the due date
+   (b) Failure to perform any other obligation within thirty (30) days of notice
+   (c) Bankruptcy or insolvency of Tenant
+
+8.2 Landlord's Remedies: Upon default, Landlord may:
+   (a) Terminate this Lease
+   (b) Re-enter and take possession of the Premises
+   (c) Pursue any other remedies available at law or in equity
+
+ARTICLE 9 - INSURANCE
+
+9.1 Tenant shall maintain:
+   (a) Commercial general liability insurance with limits of not less than $2,000,000 per occurrence
+   (b) Property insurance covering Tenant's property in the Premises
+   (c) Workers' compensation insurance as required by law
+
+9.2 Tenant shall name Landlord as an additional insured on all liability policies.
+
+ARTICLE 10 - GOVERNING LAW
+
+This Lease shall be governed by and construed in accordance with the laws of the State of New York.
+
+IN WITNESS WHEREOF, the parties have executed this Lease as of the date first written above.
+
+METROPOLITAN PROPERTIES LLC           STARTUPVENTURES INC.
+
+By: _______________________           By: _______________________
+Name: Robert Anderson                 Name: Jennifer Lee
+Title: Senior Vice President          Title: Chief Executive Officer
+Date: February 1, 2024                Date: February 1, 2024
+

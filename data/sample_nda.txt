@@ -1,0 +1,69 @@
+NON-DISCLOSURE AGREEMENT
+
+This Non-Disclosure Agreement ("Agreement") is entered into as of January 15, 2024 ("Effective Date") by and between:
+
+DISCLOSING PARTY: Acme Corporation, a Delaware corporation with its principal place of business at 123 Main Street, San Francisco, CA 94102 ("Acme")
+
+RECEIVING PARTY: Beta Technologies Inc., a California corporation with its principal place of business at 456 Oak Avenue, Palo Alto, CA 94301 ("Beta")
+
+(each a "Party" and collectively the "Parties")
+
+RECITALS
+
+WHEREAS, Acme possesses certain confidential and proprietary information relating to its technology, business operations, and strategic plans; and
+
+WHEREAS, Beta desires to receive such information for the purpose of evaluating a potential business relationship between the Parties;
+
+NOW, THEREFORE, in consideration of the mutual covenants and agreements herein contained, the Parties agree as follows:
+
+1. DEFINITION OF CONFIDENTIAL INFORMATION
+
+1.1 "Confidential Information" means any and all non-public information, whether written, oral, electronic, or visual, disclosed by the Disclosing Party to the Receiving Party, including but not limited to:
+   (a) Technical data, trade secrets, know-how, research, product plans, products, services, suppliers, customer lists, markets, software, developments, inventions, processes, formulas, technology, designs, drawings, engineering, hardware configuration information, marketing, finances, or other business information;
+   (b) Information relating to business operations, pricing, marketing strategies, customer relationships, and strategic plans.
+
+1.2 Confidential Information does not include information that:
+   (a) Is or becomes publicly available through no fault of the Receiving Party;
+   (b) Was rightfully in the Receiving Party's possession prior to disclosure;
+   (c) Is independently developed by the Receiving Party without use of the Confidential Information;
+   (d) Is rightfully obtained by the Receiving Party from a third party without restriction on disclosure.
+
+2. OBLIGATIONS OF RECEIVING PARTY
+
+2.1 The Receiving Party agrees to:
+   (a) Hold the Confidential Information in strict confidence;
+   (b) Not disclose the Confidential Information to any third party without prior written consent;
+   (c) Use the Confidential Information solely for the Purpose described herein;
+   (d) Protect the Confidential Information using the same degree of care as it uses to protect its own confidential information, but in no event less than reasonable care.
+
+3. TERM AND TERMINATION
+
+3.1 This Agreement shall remain in effect for a period of three (3) years from the Effective Date, unless earlier terminated by either Party upon thirty (30) days written notice to the other Party.
+
+3.2 The obligations of confidentiality shall survive termination of this Agreement for a period of five (5) years.
+
+4. RETURN OF INFORMATION
+
+Upon termination of this Agreement or upon request by the Disclosing Party, the Receiving Party shall promptly return or destroy all Confidential Information and any copies thereof.
+
+5. NO LICENSE
+
+Nothing in this Agreement grants the Receiving Party any rights to the Confidential Information other than the limited right to use it for the Purpose.
+
+6. GOVERNING LAW
+
+This Agreement shall be governed by and construed in accordance with the laws of the State of California, without regard to its conflict of laws principles.
+
+7. ENTIRE AGREEMENT
+
+This Agreement constitutes the entire agreement between the Parties with respect to the subject matter hereof and supersedes all prior agreements and understandings, whether written or oral.
+
+IN WITNESS WHEREOF, the Parties have executed this Agreement as of the date first written above.
+
+ACME CORPORATION                      BETA TECHNOLOGIES INC.
+
+By: _______________________           By: _______________________
+Name: John Smith                      Name: Sarah Johnson
+Title: Chief Executive Officer        Title: Vice President, Business Development
+Date: January 15, 2024                Date: January 15, 2024
+

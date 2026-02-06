@@ -1,0 +1,108 @@
+SERVICE AGREEMENT
+
+This Service Agreement ("Agreement") is made effective as of March 1, 2024 ("Effective Date")
+
+BETWEEN:
+
+SERVICE PROVIDER: TechSolutions LLC, a limited liability company organized under the laws of Texas, with offices at 789 Innovation Drive, Austin, TX 78701 ("Provider")
+
+AND
+
+CLIENT: GlobalRetail Corp., a corporation organized under the laws of New York, with its principal place of business at 1000 Commerce Street, New York, NY 10001 ("Client")
+
+1. SERVICES
+
+1.1 Provider agrees to provide the following services to Client ("Services"):
+   - Custom software development for Client's e-commerce platform
+   - System integration with existing ERP and CRM systems
+   - Technical support and maintenance services
+   - Staff training and documentation
+
+1.2 The detailed scope of Services is set forth in Exhibit A attached hereto.
+
+2. TERM
+
+2.1 This Agreement shall commence on the Effective Date and shall continue for an initial term of twenty-four (24) months ("Initial Term").
+
+2.2 Following the Initial Term, this Agreement shall automatically renew for successive twelve (12) month periods unless either Party provides written notice of non-renewal at least sixty (60) days prior to the end of the then-current term.
+
+3. COMPENSATION
+
+3.1 In consideration of the Services, Client shall pay Provider the following:
+
+   (a) Project Fee: A fixed fee of $500,000.00 USD for the initial development phase, payable as follows:
+       - 25% ($125,000) upon execution of this Agreement
+       - 25% ($125,000) upon completion of Phase 1 milestones
+       - 25% ($125,000) upon completion of Phase 2 milestones
+       - 25% ($125,000) upon final acceptance
+
+   (b) Monthly Maintenance Fee: $15,000.00 USD per month, beginning upon go-live of the system
+
+   (c) Hourly Rate for Additional Services: $175.00 USD per hour for any services requested beyond the scope defined in Exhibit A
+
+3.2 All amounts are exclusive of applicable taxes.
+
+4. PAYMENT TERMS
+
+4.1 Provider shall submit invoices on a monthly basis. All invoices shall be due and payable within thirty (30) days of receipt.
+
+4.2 Late payments shall accrue interest at a rate of 1.5% per month or the maximum rate permitted by law, whichever is less.
+
+5. INTELLECTUAL PROPERTY
+
+5.1 All intellectual property created by Provider specifically for Client under this Agreement ("Work Product") shall be owned by Client upon full payment.
+
+5.2 Provider retains all rights to its pre-existing intellectual property, tools, and methodologies ("Provider IP"). Provider grants Client a non-exclusive, perpetual license to use Provider IP incorporated into the Work Product.
+
+6. CONFIDENTIALITY
+
+6.1 Each Party agrees to maintain the confidentiality of the other Party's confidential information and to use such information only for the purposes of this Agreement.
+
+7. WARRANTIES
+
+7.1 Provider warrants that:
+   (a) The Services shall be performed in a professional and workmanlike manner
+   (b) The Services shall conform to the specifications set forth in Exhibit A
+   (c) Provider has the right to enter into this Agreement and perform its obligations hereunder
+
+8. LIMITATION OF LIABILITY
+
+8.1 IN NO EVENT SHALL EITHER PARTY BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES.
+
+8.2 THE MAXIMUM AGGREGATE LIABILITY OF PROVIDER UNDER THIS AGREEMENT SHALL NOT EXCEED $750,000.00 USD.
+
+9. TERMINATION
+
+9.1 Either Party may terminate this Agreement:
+   (a) For cause, upon thirty (30) days written notice if the other Party materially breaches this Agreement and fails to cure such breach within the notice period
+   (b) For convenience, upon ninety (90) days written notice to the other Party
+
+9.2 Upon termination, Client shall pay Provider for all Services performed and expenses incurred through the effective date of termination.
+
+10. GOVERNING LAW
+
+This Agreement shall be governed by and construed in accordance with the laws of the State of New York, without regard to conflicts of law principles.
+
+11. DISPUTE RESOLUTION
+
+Any disputes arising under this Agreement shall be resolved through binding arbitration in New York, NY in accordance with the rules of the American Arbitration Association.
+
+12. ENTIRE AGREEMENT
+
+This Agreement, together with all exhibits and attachments, constitutes the entire agreement between the Parties and supersedes all prior negotiations, representations, and agreements.
+
+IN WITNESS WHEREOF, the Parties have executed this Agreement as of the Effective Date.
+
+TECHSOLUTIONS LLC                     GLOBALRETAIL CORP.
+
+By: _______________________           By: _______________________
+Name: Michael Chen                    Name: Patricia Williams
+Title: Managing Partner               Title: Chief Technology Officer
+Date: March 1, 2024                   Date: March 1, 2024
+
+---
+
+EXHIBIT A - SCOPE OF SERVICES
+
+[Detailed specifications would be attached here]
+

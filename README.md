@@ -124,6 +124,12 @@ The core interface — compare extracted values across documents in a matrix vie
 
 ![Review Table](screenshots/review-table.png)
 
+### Analytics
+
+View extraction statistics — confidence distributions, status breakdowns, and per-field accuracy metrics.
+
+![Analytics](screenshots/analytics.png)
+
 ---
 
 ## Getting Started

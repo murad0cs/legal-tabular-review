@@ -125,3 +125,4 @@ class CommentService:
             Comment.extracted_value_id == value_id
         ).count()
 
+

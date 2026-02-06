@@ -87,3 +87,4 @@ def get_service(service_class: Type[T], db: Session) -> T:
     """Helper to get a service instance with database session."""
     return container.resolve(service_class, db=db)
 
+

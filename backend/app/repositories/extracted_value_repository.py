@@ -195,3 +195,4 @@ class ExtractedValueRepository(BaseRepository[ExtractedValue]):
             "confidence_distribution": {"high": high, "medium": medium, "low": low}
         }
 
+

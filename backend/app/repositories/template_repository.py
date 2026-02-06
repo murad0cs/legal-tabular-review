@@ -74,3 +74,4 @@ class TemplateRepository(BaseRepository[Template]):
         self.db.flush()
         return True
 
+

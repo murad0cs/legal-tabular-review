@@ -102,3 +102,4 @@ class BaseRepository(Generic[T]):
         self.db.refresh(entity)
         return entity
 
+

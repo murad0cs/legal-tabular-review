@@ -26,3 +26,4 @@ class ProjectSettings(Base):
     
     project = relationship("Project", back_populates="settings")
 
+

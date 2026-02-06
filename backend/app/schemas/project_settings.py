@@ -30,3 +30,4 @@ class ProjectSettingsResponse(BaseModel):
     class Config:
         from_attributes = True
 
+

@@ -59,3 +59,4 @@ class BaseExtractionStrategy(ABC):
         """Optional postprocessing step."""
         return results
 
+

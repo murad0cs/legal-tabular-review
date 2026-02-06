@@ -282,3 +282,4 @@ Contract Value,"$50,000.00","Article 3",0.92,"$75,000.00","Section 4.2",0.89
 - Each row is a field
 - Cells contain: Value (Citation) [Confidence%]
 
+

@@ -27,3 +27,4 @@ class CommentResponse(BaseModel):
 class CommentListResponse(BaseModel):
     comments: list[CommentResponse]
 
+

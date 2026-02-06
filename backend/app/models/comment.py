@@ -20,3 +20,4 @@ class Comment(Base):
     
     extracted_value = relationship("ExtractedValue", back_populates="comments")
 
+

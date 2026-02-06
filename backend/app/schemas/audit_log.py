@@ -24,3 +24,4 @@ class AuditLogListResponse(BaseModel):
     logs: list[AuditLogResponse]
     total: int
 
+

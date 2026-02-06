@@ -167,6 +167,30 @@ def get_values(project_id: int, db: Session = Depends(get_db)):
     )
 
 
+@router.post("/values/bulk/approve", response_model=BulkValueActionResponse)
+def bulk_approve_values(data: BulkValueActionRequest, db: Session = Depends(get_db)):
+    """Approve multiple values at once."""
+    service = ExtractionService(db)
+    updated_ids = service.bulk_approve(data.value_ids)
+    return BulkValueActionResponse(
+        message=f"Approved {len(updated_ids)} values",
+        count=len(updated_ids),
+        updated_ids=updated_ids
+    )
+
+
+@router.post("/values/bulk/reject", response_model=BulkValueActionResponse)
+def bulk_reject_values(data: BulkValueActionRequest, db: Session = Depends(get_db)):
+    """Reject multiple values at once."""
+    service = ExtractionService(db)
+    updated_ids = service.bulk_reject(data.value_ids)
+    return BulkValueActionResponse(
+        message=f"Rejected {len(updated_ids)} values",
+        count=len(updated_ids),
+        updated_ids=updated_ids
+    )
+
+
 @router.put("/values/{value_id}", response_model=ExtractedValueResponse)
 def update_value(value_id: int, data: ExtractedValueUpdate, db: Session = Depends(get_db)):
     service = ExtractionService(db)
@@ -236,30 +260,6 @@ def reject_value(value_id: int, db: Session = Depends(get_db)):
         reviewed_at=value.reviewed_at,
         created_at=value.created_at,
         updated_at=value.updated_at
-    )
-
-
-@router.post("/values/bulk/approve", response_model=BulkValueActionResponse)
-def bulk_approve_values(data: BulkValueActionRequest, db: Session = Depends(get_db)):
-    """Approve multiple values at once."""
-    service = ExtractionService(db)
-    updated_ids = service.bulk_approve(data.value_ids)
-    return BulkValueActionResponse(
-        message=f"Approved {len(updated_ids)} values",
-        count=len(updated_ids),
-        updated_ids=updated_ids
-    )
-
-
-@router.post("/values/bulk/reject", response_model=BulkValueActionResponse)
-def bulk_reject_values(data: BulkValueActionRequest, db: Session = Depends(get_db)):
-    """Reject multiple values at once."""
-    service = ExtractionService(db)
-    updated_ids = service.bulk_reject(data.value_ids)
-    return BulkValueActionResponse(
-        message=f"Rejected {len(updated_ids)} values",
-        count=len(updated_ids),
-        updated_ids=updated_ids
     )
 
 

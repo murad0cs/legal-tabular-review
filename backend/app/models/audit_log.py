@@ -31,3 +31,4 @@ class AuditLog(Base):
     
     created_at = Column(DateTime, default=datetime.utcnow)
 
+

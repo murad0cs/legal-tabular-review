@@ -241,3 +241,4 @@ class TestAPIIntegration:
         assert response.status_code == 200
         assert "templates" in response.json()
 
+

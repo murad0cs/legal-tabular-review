@@ -202,18 +202,36 @@ function ReviewTable() {
     }
   };
 
+  // Helper to extract error message
+  const getErrorMessage = (err) => {
+    if (typeof err === 'string') return err;
+    if (err?.message && typeof err.message === 'string') return err.message;
+    if (err?.response?.data?.detail) {
+      const detail = err.response.data.detail;
+      if (typeof detail === 'string') return detail;
+      if (Array.isArray(detail)) return detail.map(e => e.msg || JSON.stringify(e)).join('; ');
+      return JSON.stringify(detail);
+    }
+    return 'An unexpected error occurred';
+  };
+
   // Bulk actions
   const handleBulkApprove = async () => {
     if (selectedIds.size === 0) return;
     try {
-      await projectsApi.bulkApprove(Array.from(selectedIds));
+      const ids = Array.from(selectedIds);
+      console.log('Bulk approving IDs:', ids);
+      const response = await projectsApi.bulkApprove(ids);
+      console.log('Bulk approve response:', response);
       setValues(prev => prev.map(v =>
         selectedIds.has(v.id) ? { ...v, status: 'approved' } : v
       ));
       toast.success(`Approved ${selectedIds.size} values`);
       setSelectedIds(new Set());
     } catch (err) {
-      toast.error(`Bulk approve failed: ${err.message}`);
+      console.error('Bulk approve error:', err);
+      console.error('Error response:', err.response);
+      toast.error(`Bulk approve failed: ${getErrorMessage(err)}`);
     }
   };
 
@@ -227,7 +245,7 @@ function ReviewTable() {
       toast.success(`Rejected ${selectedIds.size} values`);
       setSelectedIds(new Set());
     } catch (err) {
-      toast.error(`Bulk reject failed: ${err.message}`);
+      toast.error(`Bulk reject failed: ${getErrorMessage(err)}`);
     }
   };
 

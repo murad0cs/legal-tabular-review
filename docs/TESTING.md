@@ -289,3 +289,4 @@ npx playwright test --update-snapshots
 | Party Name | "acme" | pattern: "^[A-Z]+" | ❌ Invalid |
 | Description | "Short" | min_length: 10 | ❌ Invalid |
 
+

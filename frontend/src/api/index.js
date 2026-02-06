@@ -9,8 +9,29 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const message = error.response?.data?.detail || error.message || 'An error occurred';
-    return Promise.reject(new Error(message));
+    let message = 'An error occurred';
+    
+    // Try to extract error message from various sources
+    if (error.response?.data?.detail) {
+      const detail = error.response.data.detail;
+      if (typeof detail === 'string') {
+        message = detail;
+      } else if (Array.isArray(detail)) {
+        // FastAPI validation errors are arrays of objects with 'msg' field
+        message = detail.map(e => e.msg || e.message || JSON.stringify(e)).join('; ');
+      } else if (typeof detail === 'object') {
+        message = detail.msg || detail.message || JSON.stringify(detail);
+      }
+    } else if (error.response?.data?.message) {
+      message = error.response.data.message;
+    } else if (error.message && typeof error.message === 'string') {
+      message = error.message;
+    }
+    
+    // Create a proper Error object with string message
+    const err = new Error(String(message));
+    err.response = error.response;
+    return Promise.reject(err);
   }
 );
 

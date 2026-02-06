@@ -141,3 +141,4 @@ class PatternExtractionStrategy(BaseExtractionStrategy):
             metadata={"strategy": self.name}
         )
 
+

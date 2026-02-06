@@ -4,17 +4,10 @@ import Modal from './Modal.jsx';
 import Button from './Button.jsx';
 import clsx from 'clsx';
 
-/**
- * DiffView Component
- * 
- * Computes and displays differences between extracted values across documents.
- * Implements the "Diff & Annotation Layer" requirement from REQUIREMENTS.md.
- */
 function DiffView({ isOpen, onClose, values, documents, fields }) {
   const [expandedFields, setExpandedFields] = useState({});
   const [showOnlyDifferences, setShowOnlyDifferences] = useState(false);
 
-  // Group values by field
   const valuesByField = useMemo(() => {
     const grouped = {};
     
@@ -38,7 +31,6 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
     return grouped;
   }, [values, documents, fields]);
 
-  // Calculate differences for each field
   const fieldsWithDiffs = useMemo(() => {
     return Object.entries(valuesByField).map(([fieldId, data]) => {
       const uniqueValues = [...new Set(data.values.map(v => v.value).filter(Boolean))];
@@ -57,12 +49,10 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
     });
   }, [valuesByField]);
 
-  // Filter based on showOnlyDifferences
   const displayFields = showOnlyDifferences 
     ? fieldsWithDiffs.filter(f => f.hasDifference)
     : fieldsWithDiffs;
 
-  // Summary stats
   const stats = useMemo(() => {
     const total = fieldsWithDiffs.length;
     const withDiffs = fieldsWithDiffs.filter(f => f.hasDifference).length;
@@ -79,7 +69,6 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
     }));
   };
 
-  // Compute text diff between two values
   const computeDiff = (val1, val2) => {
     if (!val1 || !val2) return null;
     
@@ -96,7 +85,6 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Document Comparison" size="2xl">
       <div className="flex flex-col h-[80vh]">
-        {/* Summary Header */}
         <div className="flex items-center justify-between mb-4 p-4 bg-slate-800 rounded-xl">
           <div className="flex items-center gap-6">
             <div className="text-center">
@@ -128,7 +116,6 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
           </label>
         </div>
 
-        {/* Document Headers */}
         <div className="grid grid-cols-[200px_1fr] gap-4 mb-2 px-2">
           <div className="text-sm font-medium text-slate-400">Field</div>
           <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${documents?.length || 1}, 1fr)` }}>
@@ -140,7 +127,6 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
           </div>
         </div>
 
-        {/* Field Comparisons */}
         <div className="flex-1 overflow-y-auto space-y-2 pr-2">
           {displayFields.length === 0 ? (
             <div className="text-center py-8 text-slate-400">
@@ -157,7 +143,6 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
                   'border-slate-700 bg-slate-800/50'
                 )}
               >
-                {/* Field Header */}
                 <button
                   onClick={() => toggleField(fieldId)}
                   className="w-full flex items-center justify-between p-3 hover:bg-slate-700/30 transition-colors"
@@ -187,7 +172,6 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
                   </div>
                 </button>
 
-                {/* Values Grid */}
                 <div className="grid grid-cols-[200px_1fr] gap-4 px-3 pb-3">
                   <div />
                   <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${documents?.length || 1}, 1fr)` }}>
@@ -222,7 +206,6 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
                   </div>
                 </div>
 
-                {/* Expanded Diff Details */}
                 {expandedFields[fieldId] && hasDifference && (
                   <div className="border-t border-slate-700 p-3 bg-slate-800/30">
                     <h4 className="text-xs font-medium text-slate-400 mb-2">DIFFERENCE ANALYSIS</h4>
@@ -237,7 +220,6 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
                       ))}
                     </div>
                     
-                    {/* Word-level diff for two documents */}
                     {fieldValues.filter(v => v.value).length === 2 && (
                       <div className="mt-3 p-2 bg-slate-900/50 rounded-lg">
                         <h5 className="text-xs text-slate-500 mb-1">Word Differences:</h5>
@@ -270,7 +252,6 @@ function DiffView({ isOpen, onClose, values, documents, fields }) {
           )}
         </div>
 
-        {/* Footer */}
         <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-slate-700">
           <Button variant="secondary" onClick={onClose}>
             Close

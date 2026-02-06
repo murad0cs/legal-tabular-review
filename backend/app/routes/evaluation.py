@@ -1,9 +1,3 @@
-"""
-Evaluation API Routes
-
-Provides endpoints for quality evaluation of extraction results.
-"""
-
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
@@ -17,8 +11,7 @@ router = APIRouter(prefix="/api/evaluation", tags=["Evaluation"])
 
 
 class EvaluationRequest(BaseModel):
-    """Request body for evaluation."""
-    ground_truth: Dict[str, Dict[str, str]]  # {doc_name: {field_name: expected_value}}
+    ground_truth: Dict[str, Dict[str, str]]
 
 
 @router.post("/projects/{project_id}/evaluate")
@@ -27,12 +20,6 @@ def evaluate_project(
     request: EvaluationRequest,
     db: Session = Depends(get_db)
 ):
-    """
-    Evaluate extraction results against ground truth.
-    
-    Compare AI-extracted values with human-labeled reference data.
-    Returns precision, recall, F1 score, and per-field accuracy.
-    """
     try:
         service = EvaluationService(db)
         result = service.evaluate_project(project_id, request.ground_truth)
@@ -46,11 +33,6 @@ def get_evaluation_summary(
     project_id: int,
     db: Session = Depends(get_db)
 ):
-    """
-    Get quick quality summary for a project.
-    
-    Returns confidence distribution, quality score, and rating.
-    """
     try:
         service = EvaluationService(db)
         return service.get_evaluation_summary(project_id)

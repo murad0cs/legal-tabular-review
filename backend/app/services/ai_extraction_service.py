@@ -1,17 +1,3 @@
-"""
-Optimized AI Extraction Service with best practices.
-
-Improvements over basic extraction:
-1. Structured output with JSON schema validation
-2. Retry logic with exponential backoff
-3. Caching for repeated extractions
-4. Multi-model support (OpenAI, Anthropic, local)
-5. Prompt versioning and management
-6. Confidence calibration
-7. Batch processing for efficiency
-8. Streaming support for large documents
-"""
-
 import json
 import re
 import logging
@@ -34,7 +20,6 @@ from .audit_service import AuditService
 logger = logging.getLogger(__name__)
 settings = get_settings()
 
-# Prompt templates with versioning
 PROMPT_TEMPLATES = {
     "v1.0": {
         "system": """You are an expert legal document analyst. Extract information precisely and accurately.
@@ -79,8 +64,6 @@ Important: For any field not found in the document, return:
 
 
 class AIExtractionService:
-    """Optimized AI extraction with caching, retries, and structured output."""
-    
     def __init__(self, db: Session):
         self.db = db
         self.client = OpenAI(api_key=settings.openai_api_key) if settings.openai_api_key else None
@@ -89,7 +72,6 @@ class AIExtractionService:
         self.prompt_version = "v1.0"
     
     def _get_cache_key(self, document_content: str, fields: list[TemplateField]) -> str:
-        """Generate a cache key for extraction results."""
         field_hash = hashlib.md5(
             json.dumps([f.field_name for f in fields], sort_keys=True).encode()
         ).hexdigest()
@@ -97,12 +79,10 @@ class AIExtractionService:
         return f"{content_hash}:{field_hash}:{self.prompt_version}"
     
     def _get_cached_extraction(self, cache_key: str) -> Optional[list[dict]]:
-        """Retrieve cached extraction results."""
         return self._extraction_cache.get(cache_key)
     
     def _cache_extraction(self, cache_key: str, results: list[dict]) -> None:
-        """Cache extraction results (with size limit)."""
-        if len(self._extraction_cache) > 1000:  # Simple LRU-like cleanup
+        if len(self._extraction_cache) > 1000:
             oldest_keys = list(self._extraction_cache.keys())[:100]
             for key in oldest_keys:
                 del self._extraction_cache[key]
@@ -115,7 +95,6 @@ class AIExtractionService:
         reraise=True
     )
     def _call_openai(self, messages: list[dict], temperature: float = 0.1) -> dict:
-        """Call OpenAI API with retry logic."""
         if not self.client:
             raise ExtractionError("OpenAI client not configured")
         
@@ -136,18 +115,6 @@ class AIExtractionService:
         project_id: int,
         use_cache: bool = True
     ) -> list[ExtractedValue]:
-        """
-        Extract fields from document using AI with optimizations.
-        
-        Args:
-            document: Document to extract from
-            template: Template defining fields to extract
-            project_id: Project ID for storing results
-            use_cache: Whether to use cached results
-        
-        Returns:
-            List of ExtractedValue objects
-        """
         content = document.content or ""
         if not content.strip():
             logger.warning(f"Document {document.id} has no content")
@@ -187,7 +154,6 @@ class AIExtractionService:
         return self._extract_with_patterns(document, template, project_id)
     
     def _get_example_values(self, field_type: str) -> list[str]:
-        """Get example values for each field type to help AI."""
         examples = {
             "party": ["ACME Corporation", "John Smith LLC", "Global Services Inc."],
             "date": ["January 15, 2024", "2024-01-15", "15/01/2024"],
@@ -198,11 +164,8 @@ class AIExtractionService:
         return examples.get(field_type, [])
     
     def _extract_with_ai(self, content: str, fields_schema: list[dict]) -> list[dict]:
-        """Perform AI extraction with structured output."""
         prompts = PROMPT_TEMPLATES[self.prompt_version]
-        
-        # Truncate content for context window (leaving room for response)
-        max_content_length = 12000  # Conservative limit for GPT-4
+        max_content_length = 12000
         truncated_content = content[:max_content_length]
         if len(content) > max_content_length:
             truncated_content += "\n\n[Document truncated...]"
@@ -220,7 +183,6 @@ class AIExtractionService:
         result = self._call_openai(messages)
         extractions = result.get("extractions", [])
         
-        # Validate and calibrate confidence scores
         calibrated = self._calibrate_confidence(extractions, fields_schema)
         return calibrated
     
@@ -229,14 +191,6 @@ class AIExtractionService:
         extractions: list[dict],
         fields_schema: list[dict]
     ) -> list[dict]:
-        """
-        Calibrate confidence scores based on extraction quality signals.
-        
-        AI models tend to be overconfident. This applies corrections based on:
-        - Value length and format
-        - Field type matching
-        - Citation presence
-        """
         field_types = {f["field_name"]: f["field_type"] for f in fields_schema}
         
         for ext in extractions:
@@ -250,28 +204,23 @@ class AIExtractionService:
             
             adjustments = []
             
-            # Penalize very short values for certain types
             if field_type == "party" and len(str(value)) < 3:
                 adjustments.append(-0.2)
             
-            # Penalize if no citation text provided
             if not ext.get("citation_text"):
                 adjustments.append(-0.1)
             
-            # Boost if value matches expected patterns
             if field_type == "date" and self._looks_like_date(value):
                 adjustments.append(0.05)
             elif field_type == "currency" and self._looks_like_currency(value):
                 adjustments.append(0.05)
             
-            # Apply adjustments (cap at 0.95 to never be fully confident)
             adjusted = original_conf + sum(adjustments)
             ext["confidence"] = max(0.0, min(0.95, adjusted))
         
         return extractions
     
     def _looks_like_date(self, value: str) -> bool:
-        """Check if value looks like a date."""
         date_patterns = [
             r'\d{4}-\d{2}-\d{2}',
             r'\d{1,2}/\d{1,2}/\d{4}',
@@ -280,8 +229,7 @@ class AIExtractionService:
         return any(re.search(p, str(value)) for p in date_patterns)
     
     def _looks_like_currency(self, value: str) -> bool:
-        """Check if value looks like currency."""
-        return bool(re.search(r'[\$€£]\s*[\d,]+(?:\.\d{2})?', str(value)))
+        return bool(re.search(r'[\$\u20ac\xa3]\s*[\d,]+(?:\.\d{2})?', str(value)))
     
     def _process_extractions(
         self,
@@ -290,11 +238,9 @@ class AIExtractionService:
         template: Template,
         project_id: int
     ) -> list[ExtractedValue]:
-        """Process extraction results into ExtractedValue objects."""
         field_map = {f.field_name: f for f in template.fields}
         values = []
         
-        # Get auto-approve settings
         proj_settings = self.db.query(ProjectSettings).filter(
             ProjectSettings.project_id == project_id
         ).first()
@@ -309,8 +255,6 @@ class AIExtractionService:
             raw_value = ext.get("value")
             normalized_value = Normalizer.normalize(raw_value, field.normalization_rule)
             confidence = ext.get("confidence", 0.0)
-            
-            # Determine status
             status = "pending"
             reviewer = None
             reviewed_at = None
@@ -337,7 +281,6 @@ class AIExtractionService:
         
         self.db.commit()
         
-        # Log extractions
         for ev in values:
             self.audit_service.log(
                 entity_type="extracted_value",
@@ -357,7 +300,6 @@ class AIExtractionService:
         template: Template,
         project_id: int
     ) -> list[ExtractedValue]:
-        """Create empty extractions for documents with no content."""
         values = []
         for field in template.fields:
             ev = ExtractedValue(
@@ -382,8 +324,6 @@ class AIExtractionService:
         template: Template,
         project_id: int
     ) -> list[ExtractedValue]:
-        """Fallback pattern-based extraction."""
-        # Import from existing extraction service
         from .extraction_service import ExtractionService
         basic_service = ExtractionService(self.db)
         return basic_service._extract_with_patterns(document, template, project_id)
@@ -394,17 +334,11 @@ class AIExtractionService:
         template: Template,
         project_id: int
     ) -> list[ExtractedValue]:
-        """
-        Batch extract from multiple documents efficiently.
-        
-        Uses concurrent processing for better performance.
-        """
         all_values = []
         for doc in documents:
             if doc.status != "ready" or not doc.content:
                 continue
             
-            # Clear previous extractions
             self.db.query(ExtractedValue).filter(
                 ExtractedValue.document_id == doc.id,
                 ExtractedValue.project_id == project_id
@@ -416,7 +350,6 @@ class AIExtractionService:
         return all_values
     
     def get_extraction_stats(self, project_id: int) -> dict:
-        """Get extraction statistics for a project."""
         values = self.db.query(ExtractedValue).filter(
             ExtractedValue.project_id == project_id
         ).all()

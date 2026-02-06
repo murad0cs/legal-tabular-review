@@ -1,13 +1,3 @@
-"""
-Quality Evaluation Service
-
-Compares AI extraction results against human-labeled reference data.
-Implements the evaluation requirements from REQUIREMENTS.md:
-- Field-level accuracy
-- Coverage metrics
-- Normalization validity
-"""
-
 import json
 import logging
 from typing import Optional
@@ -21,8 +11,6 @@ logger = logging.getLogger(__name__)
 
 
 class EvaluationService:
-    """Service for evaluating extraction quality against ground truth."""
-    
     def __init__(self, db: Session):
         self.db = db
     
@@ -31,26 +19,14 @@ class EvaluationService:
         project_id: int,
         ground_truth: dict[str, dict[str, str]]
     ) -> dict:
-        """
-        Evaluate extraction results against ground truth.
-        
-        Args:
-            project_id: Project to evaluate
-            ground_truth: Dict mapping document_name -> {field_name: expected_value}
-        
-        Returns:
-            Evaluation report with metrics
-        """
         project = self.db.query(Project).filter(Project.id == project_id).first()
         if not project:
             raise NotFoundError("Project", project_id)
         
-        # Get all extracted values for the project
         values = self.db.query(ExtractedValue).filter(
             ExtractedValue.project_id == project_id
         ).all()
         
-        # Build lookup by document and field
         extracted_map = {}
         for v in values:
             doc_name = v.document.original_filename if v.document else str(v.document_id)
@@ -64,7 +40,6 @@ class EvaluationService:
                 "confidence": v.confidence
             }
         
-        # Calculate metrics
         results = {
             "project_id": project_id,
             "evaluated_at": datetime.utcnow().isoformat(),
@@ -103,7 +78,6 @@ class EvaluationService:
                 actual_value = extracted.get("normalized_value") or extracted.get("raw_value")
                 confidence = extracted.get("confidence", 0.0)
                 
-                # Compare values (case-insensitive, whitespace-normalized)
                 is_match = self._compare_values(actual_value, expected_value)
                 
                 field_result = {
@@ -130,7 +104,6 @@ class EvaluationService:
             
             results["documents"].append(doc_result)
         
-        # Calculate final metrics
         total = results["summary"]["total_fields"]
         correct = results["summary"]["correct_extractions"]
         extracted_count = correct + results["summary"]["incorrect_extractions"]
@@ -161,41 +134,32 @@ class EvaluationService:
         return results
     
     def _compare_values(self, actual: Optional[str], expected: str) -> bool:
-        """Compare extracted value against expected value."""
         if actual is None:
             return False
         
-        # Normalize both values for comparison
         actual_norm = self._normalize_for_comparison(actual)
         expected_norm = self._normalize_for_comparison(expected)
         
-        # Exact match
         if actual_norm == expected_norm:
             return True
         
-        # Check if expected is contained in actual (partial match)
         if expected_norm in actual_norm:
             return True
         
-        # Check for semantic equivalence (dates, currencies)
         if self._are_semantically_equivalent(actual, expected):
             return True
         
         return False
     
     def _normalize_for_comparison(self, value: str) -> str:
-        """Normalize value for comparison."""
         return " ".join(value.lower().split())
     
     def _are_semantically_equivalent(self, actual: str, expected: str) -> bool:
-        """Check if values are semantically equivalent (e.g., different date formats)."""
-        # Try date comparison
         actual_date = self._parse_date(actual)
         expected_date = self._parse_date(expected)
         if actual_date and expected_date and actual_date == expected_date:
             return True
         
-        # Try currency comparison
         actual_amount = self._parse_currency(actual)
         expected_amount = self._parse_currency(expected)
         if actual_amount is not None and expected_amount is not None:
@@ -204,14 +168,13 @@ class EvaluationService:
         return False
     
     def _parse_date(self, value: str) -> Optional[str]:
-        """Try to parse date to ISO format."""
         import re
         from datetime import datetime as dt
         
         patterns = [
             (r'(\d{4})-(\d{2})-(\d{2})', '%Y-%m-%d'),
             (r'(\d{2})/(\d{2})/(\d{4})', '%m/%d/%Y'),
-            (r'([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})', None),  # "January 15, 2024"
+            (r'([A-Za-z]+)\s+(\d{1,2}),?\s+(\d{4})', None),
         ]
         
         for pattern, fmt in patterns:
@@ -226,7 +189,6 @@ class EvaluationService:
         return None
     
     def _parse_currency(self, value: str) -> Optional[float]:
-        """Try to parse currency amount."""
         import re
         match = re.search(r'[\$€£]?\s*([\d,]+(?:\.\d{2})?)', value)
         if match:
@@ -237,7 +199,6 @@ class EvaluationService:
         return None
     
     def get_evaluation_summary(self, project_id: int) -> dict:
-        """Get a quick summary of extraction quality indicators."""
         values = self.db.query(ExtractedValue).filter(
             ExtractedValue.project_id == project_id
         ).all()
@@ -250,7 +211,6 @@ class EvaluationService:
         for v in values:
             statuses[v.status] = statuses.get(v.status, 0) + 1
         
-        # Quality indicators based on confidence distribution
         high_confidence = sum(1 for c in confidences if c >= 0.8)
         medium_confidence = sum(1 for c in confidences if 0.5 <= c < 0.8)
         low_confidence = sum(1 for c in confidences if c < 0.5)

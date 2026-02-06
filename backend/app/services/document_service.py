@@ -18,8 +18,6 @@ settings = get_settings()
 
 
 class HTMLTextExtractor(HTMLParser):
-    """Extract text from HTML while preserving basic structure."""
-    
     def __init__(self):
         super().__init__()
         self.result = StringIO()
@@ -45,7 +43,6 @@ class HTMLTextExtractor(HTMLParser):
                 self.result.write(text + ' ')
     
     def get_text(self):
-        # Clean up multiple newlines and spaces
         text = self.result.getvalue()
         text = re.sub(r'\n\s*\n', '\n\n', text)
         text = re.sub(r' +', ' ', text)
@@ -115,10 +112,8 @@ class DocumentService:
         raise FileUploadError(f"Unsupported file type: {file_type}")
     
     def _extract_txt(self, file_path: str) -> tuple[str, int]:
-        """Extract text from plain text files (useful for testing)."""
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
-        # Estimate 1 page per ~3000 characters
         page_count = max(1, len(content) // 3000)
         return content, page_count
     
@@ -140,8 +135,6 @@ class DocumentService:
         return "\n\n".join(paragraphs), page_count
     
     def _extract_html(self, file_path: str) -> tuple[str, int]:
-        """Extract text from HTML files (legal filings often come in HTML)."""
-        # Try different encodings
         encodings = ['utf-8', 'latin-1', 'cp1252']
         content = None
         
@@ -154,16 +147,13 @@ class DocumentService:
                 continue
         
         if content is None:
-            # Fallback: read as binary and decode with errors ignored
             with open(file_path, 'rb') as f:
                 content = f.read().decode('utf-8', errors='ignore')
         
-        # Parse HTML and extract text
         parser = HTMLTextExtractor()
         parser.feed(content)
         text = parser.get_text()
         
-        # Estimate pages (3000 chars per page)
         page_count = max(1, len(text) // 3000)
         return text, page_count
     

@@ -127,7 +127,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  # Integration Tests (optional - requires docker-compose)
+  # Integration Tests (optional - requires docker compose)
   integration-test:
     name: Integration Tests
     runs-on: ubuntu-latest
@@ -139,8 +139,8 @@ jobs:
       
       - name: Start services
         run: |
-          docker-compose up -d
-          sleep 10
+          docker compose up -d
+          sleep 30
       
       - name: Health check
         run: |
@@ -157,6 +157,6 @@ jobs:
       
       - name: Stop services
         if: always()
-        run: docker-compose down
+        run: docker compose down
 
 

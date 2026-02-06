@@ -5,7 +5,7 @@ from ..database import get_db
 from ..services.comment_service import CommentService
 from ..schemas import CommentCreate, CommentUpdate, CommentResponse, CommentListResponse
 
-router = APIRouter(prefix="/comments", tags=["comments"])
+router = APIRouter(prefix="/api/comments", tags=["comments"])
 
 
 @router.post("/values/{value_id}", response_model=CommentResponse, status_code=status.HTTP_201_CREATED)

@@ -5,7 +5,7 @@ from ..database import get_db
 from ..services.audit_service import AuditService
 from ..schemas import AuditLogListResponse, AuditLogResponse
 
-router = APIRouter(prefix="/audit", tags=["audit"])
+router = APIRouter(prefix="/api/audit", tags=["audit"])
 
 
 @router.get("/projects/{project_id}", response_model=AuditLogListResponse)

@@ -5,7 +5,7 @@ from ..database import get_db
 from ..services.settings_service import SettingsService
 from ..schemas import ProjectSettingsCreate, ProjectSettingsUpdate, ProjectSettingsResponse
 
-router = APIRouter(prefix="/settings", tags=["settings"])
+router = APIRouter(prefix="/api/settings", tags=["settings"])
 
 
 @router.get("/projects/{project_id}", response_model=ProjectSettingsResponse)

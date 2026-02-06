@@ -7,8 +7,15 @@
 :root {
   --color-primary: 99 102 241;
   --color-accent: 168 85 247;
+  --color-background: 248 250 252;
+  --color-surface: 255 255 255;
+  --color-text: 15 23 42;
+}
+
+.dark {
   --color-background: 15 23 42;
   --color-surface: 30 41 59;
+  --color-text: 226 232 240;
 }
 
 * {
@@ -26,26 +33,39 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--color-surface));
+  background: rgb(203 213 225);
   border-radius: 4px;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-surface));
+}
+
 ::-webkit-scrollbar-thumb:hover {
+  background: rgb(148 163 184);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
   background: rgb(71 85 105);
 }
 
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background-color: rgb(var(--color-background));
-  color: rgb(226 232 240);
+  color: rgb(var(--color-text));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 @layer components {
   .glass {
-    background: rgba(30, 41, 59, 0.7);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(12px);
+    border: 1px solid rgba(203, 213, 225, 0.4);
+  }
+
+  .dark .glass {
+    background: rgba(30, 41, 59, 0.7);
     border: 1px solid rgba(71, 85, 105, 0.4);
   }
 

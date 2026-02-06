@@ -29,15 +29,15 @@ function Layout({ children }) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background dark:bg-background light:bg-slate-50 flex transition-colors">
-      <aside className="w-64 bg-surface/50 dark:bg-surface/50 light:bg-white border-r border-slate-800 dark:border-slate-800 light:border-slate-200 flex flex-col transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex transition-colors">
+      <aside className="w-64 bg-white dark:bg-slate-800/50 border-r border-slate-200 dark:border-slate-700 flex flex-col transition-colors">
         <div className="p-6 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-primary-500/20 flex items-center justify-center">
               <Layers className="w-6 h-6 text-primary-400" />
             </div>
             <div>
-              <h1 className="font-bold text-white dark:text-white light:text-slate-900">Legal Review</h1>
+              <h1 className="font-bold text-slate-900 dark:text-white">Legal Review</h1>
               <p className="text-xs text-slate-500">Tabular Extraction</p>
             </div>
           </Link>
@@ -48,11 +48,11 @@ function Layout({ children }) {
         <div className="px-4 mb-4">
           <button
             onClick={() => setSearchOpen(true)}
-            className="w-full flex items-center gap-3 px-4 py-2.5 bg-slate-800/50 hover:bg-slate-800 rounded-xl text-slate-400 hover:text-white transition-colors"
+            className="w-full flex items-center gap-3 px-4 py-2.5 bg-slate-100 dark:bg-slate-800/50 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors"
           >
             <Search className="w-4 h-4" />
             <span className="text-sm">Search...</span>
-            <kbd className="ml-auto text-xs bg-slate-700 px-1.5 py-0.5 rounded">⌘K</kbd>
+            <kbd className="ml-auto text-xs bg-slate-200 dark:bg-slate-700 px-1.5 py-0.5 rounded">⌘K</kbd>
           </button>
         </div>
 
@@ -62,15 +62,15 @@ function Layout({ children }) {
               const isActive = location.pathname === path || (path !== '/' && location.pathname.startsWith(path));
               return (
                 <li key={path}>
-                  <Link
-                    to={path}
-                    className={clsx(
-                      'flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200',
-                      isActive 
-                        ? 'bg-primary-500/20 text-primary-400' 
-                        : 'text-slate-400 hover:text-white dark:hover:text-white light:hover:text-slate-900 hover:bg-slate-800/50 dark:hover:bg-slate-800/50 light:hover:bg-slate-100'
-                    )}
-                  >
+                    <Link
+                      to={path}
+                      className={clsx(
+                        'flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200',
+                        isActive 
+                          ? 'bg-primary-500/20 text-primary-500' 
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/50'
+                      )}
+                    >
                     <Icon className="w-5 h-5" />
                     <span className="font-medium">{label}</span>
                   </Link>
@@ -80,7 +80,7 @@ function Layout({ children }) {
           </ul>
         </nav>
 
-        <div className="p-4 text-center text-xs text-slate-600 dark:text-slate-600 light:text-slate-400">
+        <div className="p-4 text-center text-xs text-slate-400 dark:text-slate-600">
           v1.0.0 • Legal Tabular Review
         </div>
       </aside>

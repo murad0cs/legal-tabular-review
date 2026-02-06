@@ -35,8 +35,14 @@ export default {
           800: '#6b21a8',
           900: '#581c87',
         },
-        background: 'rgb(15 23 42)',
-        surface: 'rgb(30 41 59)',
+        background: {
+          light: 'rgb(248 250 252)',
+          dark: 'rgb(15 23 42)',
+        },
+        surface: {
+          light: 'rgb(255 255 255)',
+          dark: 'rgb(30 41 59)',
+        },
       },
       animation: {
         'fade-in': 'fadeIn 0.2s ease-out',

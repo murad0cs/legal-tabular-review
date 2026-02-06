@@ -1,7 +1,6 @@
 """Base repository implementing generic CRUD operations."""
 from typing import TypeVar, Generic, Optional, Type
 from sqlalchemy.orm import Session
-from sqlalchemy import and_
 
 from ..database import Base
 

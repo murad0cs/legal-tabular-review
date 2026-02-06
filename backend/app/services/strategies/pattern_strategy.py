@@ -1,6 +1,5 @@
 """Pattern-based extraction strategy."""
 import re
-from typing import Optional
 from .base import BaseExtractionStrategy, ExtractionResult
 
 

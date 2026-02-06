@@ -4,8 +4,6 @@ import logging
 import hashlib
 from datetime import datetime
 from typing import Optional, Any
-from functools import lru_cache
-import time
 
 from sqlalchemy.orm import Session
 from openai import OpenAI

@@ -5,7 +5,7 @@ from ..database import get_db
 from ..services import ProjectService, ExtractionService, ValidationService
 from ..schemas import (
     ProjectCreate, ProjectUpdate, ProjectResponse, ProjectListResponse,
-    ProjectDetailResponse, AddDocumentsRequest, ExtractedValueResponse,
+    AddDocumentsRequest, ExtractedValueResponse,
     ExtractedValueUpdate, ExtractedValuesResponse, BulkValueActionRequest,
     BulkValueActionResponse
 )

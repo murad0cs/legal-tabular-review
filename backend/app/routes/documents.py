@@ -6,7 +6,6 @@ from ..database import get_db
 from ..services import DocumentService
 from ..schemas import DocumentResponse, DocumentListResponse, DocumentContentResponse
 from ..config import get_settings
-from ..exceptions import FileUploadError
 
 router = APIRouter(prefix="/api/documents", tags=["Documents"])
 settings = get_settings()

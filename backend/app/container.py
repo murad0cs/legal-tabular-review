@@ -1,6 +1,5 @@
 """Dependency Injection Container for service management."""
 from typing import Type, TypeVar, Callable, Any, Optional
-from functools import lru_cache
 from sqlalchemy.orm import Session
 
 T = TypeVar('T')

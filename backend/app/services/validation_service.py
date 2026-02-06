@@ -1,9 +1,8 @@
 import re
 from datetime import datetime
-from typing import Optional
 from sqlalchemy.orm import Session
 
-from ..models import ExtractedValue, TemplateField
+from ..models import ExtractedValue
 
 
 class ValidationService:

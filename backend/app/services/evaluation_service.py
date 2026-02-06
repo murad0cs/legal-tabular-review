@@ -1,10 +1,9 @@
-import json
 import logging
 from typing import Optional
 from sqlalchemy.orm import Session
 from datetime import datetime
 
-from ..models import ExtractedValue, Project, Document, TemplateField
+from ..models import ExtractedValue, Project
 from ..exceptions import NotFoundError
 
 logger = logging.getLogger(__name__)
@@ -184,7 +183,7 @@ class EvaluationService:
                     if fmt:
                         parsed = dt.strptime(match.group(0), fmt)
                         return parsed.strftime('%Y-%m-%d')
-                except:
+                except (ValueError, AttributeError):
                     pass
         return None
     
@@ -194,7 +193,7 @@ class EvaluationService:
         if match:
             try:
                 return float(match.group(1).replace(',', ''))
-            except:
+            except (ValueError, AttributeError):
                 pass
         return None
     

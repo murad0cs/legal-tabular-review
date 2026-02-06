@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from sqlalchemy import or_, and_
+from sqlalchemy import or_
 from typing import Optional
 
 from ..models import ExtractedValue, Document, Project, TemplateField

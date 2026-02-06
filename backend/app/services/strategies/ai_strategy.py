@@ -2,10 +2,10 @@
 import json
 import logging
 import hashlib
-from typing import Optional, Any
+from typing import Optional
 
 from openai import OpenAI
-from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 from .base import BaseExtractionStrategy, ExtractionResult
 from ...config import get_settings

@@ -1,6 +1,6 @@
 """Base extraction strategy implementing the Strategy Pattern."""
 from abc import ABC, abstractmethod
-from typing import Any, Optional
+from typing import Optional
 from dataclasses import dataclass
 
 

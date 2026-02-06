@@ -1,7 +1,6 @@
 """Abstract interfaces for dependency injection and extensibility."""
 from abc import ABC, abstractmethod
 from typing import Any, Optional
-from sqlalchemy.orm import Session
 
 
 class IExtractionStrategy(ABC):

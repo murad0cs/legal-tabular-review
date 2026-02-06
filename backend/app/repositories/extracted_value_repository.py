@@ -2,7 +2,7 @@
 from typing import Optional
 from datetime import datetime
 from sqlalchemy.orm import Session
-from sqlalchemy import and_, or_
+from sqlalchemy import or_
 
 from .base import BaseRepository
 from ..models import ExtractedValue

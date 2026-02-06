@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Search, X, Filter, FileText, Folder, Tag, ChevronDown } from 'lucide-react';
 import { searchApi } from '../api/index.js';
 import ConfidenceBadge from './ConfidenceBadge.jsx';
@@ -24,16 +24,13 @@ function GlobalSearch({ isOpen, onClose }) {
   });
   const [pagination, setPagination] = useState({ total: 0, has_more: false });
   const searchInputRef = useRef(null);
-  const debounceTimer = useRef(null);
 
-  // Focus input when modal opens
   useEffect(() => {
     if (isOpen && searchInputRef.current) {
       setTimeout(() => searchInputRef.current?.focus(), 100);
     }
   }, [isOpen]);
 
-  // Fetch field types for filter dropdown
   useEffect(() => {
     if (isOpen && fieldTypes.length === 0) {
       searchApi.getFieldTypes()
@@ -42,50 +39,38 @@ function GlobalSearch({ isOpen, onClose }) {
     }
   }, [isOpen, fieldTypes.length]);
 
-  // Debounced search
-  const performSearch = useCallback(async () => {
+  useEffect(() => {
     if (!query.trim()) {
       setResults([]);
       setPagination({ total: 0, has_more: false });
       return;
     }
 
-    setLoading(true);
-    try {
-      const options = {};
-      if (filters.field_type) options.field_type = filters.field_type;
-      if (filters.status) options.status = filters.status;
-      if (filters.min_confidence) options.min_confidence = parseFloat(filters.min_confidence);
-      if (filters.max_confidence) options.max_confidence = parseFloat(filters.max_confidence);
+    const timer = setTimeout(async () => {
+      setLoading(true);
+      try {
+        const options = {};
+        if (filters.field_type) options.field_type = filters.field_type;
+        if (filters.status) options.status = filters.status;
+        if (filters.min_confidence) options.min_confidence = parseFloat(filters.min_confidence);
+        if (filters.max_confidence) options.max_confidence = parseFloat(filters.max_confidence);
 
-      const res = await searchApi.search(query, options);
-      setResults(res.data.results || []);
-      setPagination({
-        total: res.data.total || 0,
-        has_more: res.data.has_more || false
-      });
-    } catch (err) {
-      toast.error(`Search failed: ${err.message}`);
-    } finally {
-      setLoading(false);
-    }
-  }, [query, filters]);
-
-  // Debounce search input
-  useEffect(() => {
-    if (debounceTimer.current) {
-      clearTimeout(debounceTimer.current);
-    }
-    debounceTimer.current = setTimeout(() => {
-      performSearch();
+        const res = await searchApi.search(query, options);
+        setResults(res.data.results || []);
+        setPagination({
+          total: res.data.total || 0,
+          has_more: res.data.has_more || false
+        });
+      } catch (err) {
+        toast.error(`Search failed: ${err.message}`);
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
     }, 300);
 
-    return () => {
-      if (debounceTimer.current) {
-        clearTimeout(debounceTimer.current);
-      }
-    };
-  }, [query, performSearch]);
+    return () => clearTimeout(timer);
+  }, [query, filters]);
 
   const handleResultClick = (result) => {
     onClose();
@@ -117,8 +102,9 @@ function GlobalSearch({ isOpen, onClose }) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onInput={(e) => setQuery(e.target.value)}
             placeholder="Search extracted values, documents, fields..."
-            className="w-full pl-12 pr-12 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-lg"
+            className="w-full pl-12 pr-12 py-3 bg-slate-800 dark:bg-slate-800 border border-slate-700 rounded-xl text-white dark:text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/50 text-lg"
           />
           {query && (
             <button

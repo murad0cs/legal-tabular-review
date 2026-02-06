@@ -6,8 +6,6 @@ from ..models import ExtractedValue, Document, Project, TemplateField
 
 
 class SearchService:
-    """Service for searching across all extracted values."""
-    
     def __init__(self, db: Session):
         self.db = db
     
@@ -22,22 +20,6 @@ class SearchService:
         limit: int = 100,
         offset: int = 0
     ) -> dict:
-        """Search extracted values across all projects.
-        
-        Args:
-            query: Text to search for in raw_value, normalized_value, or citation_text
-            project_id: Optional filter by project
-            field_type: Optional filter by field type (date, currency, party, etc.)
-            status: Optional filter by status (pending, approved, rejected)
-            min_confidence: Optional minimum confidence threshold
-            max_confidence: Optional maximum confidence threshold
-            limit: Maximum results to return
-            offset: Offset for pagination
-        
-        Returns:
-            Dictionary with results and metadata
-        """
-        # Build base query with joins
         base_query = self.db.query(ExtractedValue).join(
             TemplateField, ExtractedValue.template_field_id == TemplateField.id
         ).join(
@@ -46,7 +28,6 @@ class SearchService:
             Project, ExtractedValue.project_id == Project.id
         )
         
-        # Text search across multiple fields
         if query:
             search_term = f"%{query}%"
             base_query = base_query.filter(
@@ -59,7 +40,6 @@ class SearchService:
                 )
             )
         
-        # Apply filters
         if project_id:
             base_query = base_query.filter(ExtractedValue.project_id == project_id)
         
@@ -75,17 +55,15 @@ class SearchService:
         if max_confidence is not None:
             base_query = base_query.filter(ExtractedValue.confidence <= max_confidence)
         
-        # Get total count
         total = base_query.count()
         
-        # Apply pagination and get results
         results = base_query.order_by(
             ExtractedValue.confidence.desc()
         ).offset(offset).limit(limit).all()
         
-        # Format results with context
         formatted = []
         for value in results:
+            project = self.db.query(Project).filter(Project.id == value.project_id).first()
             formatted.append({
                 "id": value.id,
                 "raw_value": value.raw_value,
@@ -106,8 +84,8 @@ class SearchService:
                     "filename": value.document.original_filename
                 },
                 "project": {
-                    "id": value.document.project_documents[0].project.id if value.document.project_documents else None,
-                    "name": value.document.project_documents[0].project.name if value.document.project_documents else None
+                    "id": value.project_id,
+                    "name": project.name if project else None
                 }
             })
         
@@ -120,18 +98,15 @@ class SearchService:
         }
     
     def get_field_types(self) -> list[str]:
-        """Get all distinct field types used in templates."""
         types = self.db.query(TemplateField.field_type).distinct().all()
         return [t[0] for t in types]
     
     def get_search_suggestions(self, query: str, limit: int = 10) -> list[dict]:
-        """Get search suggestions based on existing values."""
         if not query or len(query) < 2:
             return []
         
         search_term = f"%{query}%"
         
-        # Get distinct normalized values that match
         values = self.db.query(
             ExtractedValue.normalized_value,
             TemplateField.field_label
